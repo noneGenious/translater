@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration status="error">
+	<!-- 先定义所有的appender -->
+	<appenders>
+		<!-- 这个会打印出所有的信息，每次大小超过size，则这size大小的日志会自动存入按年份-月份建立的文件夹下面，作为存档，如果不超过size，则此部分日志保存在web.log里面 -->
+		<RollingFile name="RollingFile" fileName="log4j2/logs/web.log"
+			filePattern="log4j2/logs/$${date:yyyy-MM}/%d{MM-dd-yyyy}-%i.log">
+			<!-- pattern = "[ 日志级别 | 类名 | 方法名 | 行数 | 线程名 | 区分客户端 | 时间 ] - 日志信息" -->
+			<PatternLayout
+				pattern="[ %level{length=1} | %-20class{1} | %-15M | %-2L | %-2t | %X{5} | %d{yyyy-MM-dd HH:mm:ss} ] %msg%n" />
+			<Policies>
+				<TimeBasedTriggeringPolicy interval="2 hour" />			<!--多长时间滚动一次 -->
+				<SizeBasedTriggeringPolicy size="10240KB" />		<!-- 一个日志文件的最大大小 -->
+			</Policies>
+ 			<DefaultRolloverStrategy max="20" />   <!-- 文件夹下最多的文件个数 -->
+		</RollingFile>
+	</appenders>
+	<!-- 然后定义logger，只有定义了logger并引入的appender，appender才会生效 -->
+	<loggers>
+		<!-- 建立一个默认的root的logger -->
+		<root level="trace">
+			<appender-ref ref="RollingFile" />
+		</root>
+	</loggers>
+</configuration>
