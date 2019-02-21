@@ -1,15 +1,11 @@
 package com.shuqi.wechat.translater.util;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
 
 public class PropertyUtil {
-    private static final Logger logger = LoggerFactory.getLogger(PropertyUtil.class);
     private static Properties props;
 
     static {
@@ -23,19 +19,18 @@ public class PropertyUtil {
             in = PropertyUtil.class.getClassLoader().getResourceAsStream("general.properties");
             props.load(in);
         } catch (FileNotFoundException e) {
-            logger.error("general.properties�ļ�δ�ҵ�");
+            e.printStackTrace();
         } catch (IOException e) {
-            logger.error("����IOException");
+            e.printStackTrace();
         } finally {
             try {
                 if (null != in) {
                     in.close();
                 }
             } catch (IOException e) {
-                logger.error("general.properties�ļ����رճ����쳣");
+                e.printStackTrace();
             }
         }
-        logger.info("����properties�ļ��������...........");
     }
 
     public static String getProperty(String key) {

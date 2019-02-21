@@ -31,11 +31,12 @@ public class HttpUtils {
     private static CloseableHttpClient httpClient;
 
     private static final Logger log = Logger.getLogger(HttpUtils.class);
+
     /**
      * ��ʼ�����ӳ�
      */
     private static synchronized void initPools() {
-        if(httpClient == null){
+        if (httpClient == null) {
             PoolingHttpClientConnectionManager cm = new PoolingHttpClientConnectionManager();
             cm.setDefaultMaxPerRoute(MAX_PER_ROUTE);
             cm.setMaxTotal(MAX_TOTAL);
@@ -54,7 +55,7 @@ public class HttpUtils {
         return handleResponse(httpGet);
     }
 
-    public static String doPost(String url, Map params) throws URISyntaxException {
+    public static String doPost(String url, Map params) throws URISyntaxException, IOException {
         initPools();
         RequestConfig requestConfig = RequestConfig.custom()
                 .setSocketTimeout(SOCKET_TIMEOUT).setConnectTimeout(CONNECT_TIMEOUT).build();
@@ -69,7 +70,7 @@ public class HttpUtils {
         return doGet(url, new HashMap());
     }
 
-    public static String doPost(String url) throws URISyntaxException {
+    public static String doPost(String url) throws URISyntaxException, IOException {
         return doPost(url, new HashMap());
     }
 
@@ -81,16 +82,12 @@ public class HttpUtils {
         return uriBuilder.build();
     }
 
-    private static String handleResponse(HttpRequestBase request){
-        try (CloseableHttpResponse response = httpClient.execute(request)) {
-            StatusLine statusLine = response.getStatusLine();
-            if (statusLine.getStatusCode() == HttpStatus.SC_OK) {//�ɹ�
-                HttpEntity entity = response.getEntity();
-                return EntityUtils.toString(entity, "UTF-8");
-            }
-        } catch (Exception e) {
-            log.error(e);
-        }
-        return "";
+    private static String handleResponse(HttpRequestBase request) throws IOException {
+        CloseableHttpResponse response = httpClient.execute(request);
+        StatusLine statusLine = response.getStatusLine();
+
+        HttpEntity entity = response.getEntity();
+        return EntityUtils.toString(entity, "UTF-8");
+
     }
 }

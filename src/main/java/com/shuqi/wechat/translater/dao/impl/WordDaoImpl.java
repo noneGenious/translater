@@ -12,13 +12,13 @@ import javax.annotation.Resource;
 @Repository("wordsDao")
 public class WordDaoImpl implements WordsDao {
 
-    @Resource(name="mongoTemplate")
+    @Resource(name = "mongoTemplate")
     private MongoOperations mongoOper;
 
 
     @Override
     public void addWord(Word word) {
-        mongoOper.insert(word);
+
     }
 
     @Override

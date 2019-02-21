@@ -25,6 +25,11 @@
 hs_err_pid*
 
 .idea
+*.iml
+
+*.mp3
+*.acc
+*.wav
 
 src/test/
 target/apache-tomcat-maven-plugin/

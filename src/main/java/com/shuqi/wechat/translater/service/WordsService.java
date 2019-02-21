@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 import javax.annotation.Resource;
 
 @Service("wordsService")
-public class WordService {
+public class WordsService {
 
     @Resource(name = "wordsDao")
     private WordsDao wordsDao;

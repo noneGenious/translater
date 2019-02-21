@@ -2,32 +2,35 @@ package com.shuqi.wechat.translater.bean;
 
 import java.util.Map;
 
-public class Word
-{
-	private String wrod;
-	private Map translate;
+public class Word {
+    private String userId;
+    private String word;
+    private Map translate;
 
-	public Word() {
-	}
+    public String getUserId() {
+        return userId;
+    }
 
-	public Word(String wrod, Map translate) {
-		this.wrod = wrod;
-		this.translate = translate;
-	}
+    public void setUserId(String userId) {
+        this.userId = userId;
+    }
 
-	public String getWrod() {
-		return wrod;
-	}
+    public String getWord() {
+        return word;
+    }
 
-	public void setWrod(String wrod) {
-		this.wrod = wrod;
-	}
+    public void setWord(String word) {
+        this.word = word;
+    }
 
-	public Map getTranslate() {
-		return translate;
-	}
+    public Map getTranslate() {
+        return translate;
+    }
 
-	public void setTranslate(Map translate) {
-		this.translate = translate;
-	}
+    public void setTranslate(Map translate) {
+        this.translate = translate;
+    }
+
+    public Word() {
+    }
 }
